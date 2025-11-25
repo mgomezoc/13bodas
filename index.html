@@ -1,507 +1,614 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es-MX">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no" />
 
-  <title>13Bodas · Invitaciones digitales y filtros AR para bodas y eventos</title>
+    <!-- Google Analytics (opcional, borra si no lo usas) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
 
-  <meta name="description"
-        content="13Bodas crea invitaciones digitales y filtros de realidad aumentada para bodas, XV años y eventos especiales. Sorprende a tus invitados con experiencias elegantes y totalmente interactivas." />
-  <meta name="author" content="13Bodas.com" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0c354f" />
+    <title>
+      13Bodas | Invitaciones digitales y filtros AR para bodas, XV y eventos
+    </title>
+    <meta
+      name="description"
+      content="13Bodas diseña invitaciones digitales y filtros de realidad aumentada para bodas, XV años y eventos especiales. Experiencias modernas, elegantes y 100% personalizadas." />
+    <meta
+      name="keywords"
+      content="13Bodas, invitaciones digitales, invitaciones web, filtros AR bodas, filtros AR XV, realidad aumentada eventos, MagicCam" />
+    <meta name="author" content="13Bodas" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://13bodas.com/" />
 
-  <!-- Canonical -->
-  <link rel="canonical" href="https://13bodas.com/" />
+    <link rel="alternate" hreflang="es-mx" href="https://13bodas.com/" />
+    <link rel="alternate" hreflang="es" href="https://13bodas.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://13bodas.com/" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:locale" content="es_MX" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="13Bodas · Invitaciones digitales y filtros AR para bodas y eventos" />
-  <meta property="og:description"
-        content="Convierte tu boda, XV o evento en una experiencia única con invitaciones digitales y filtros AR personalizados para tus invitados." />
-  <meta property="og:url" content="https://13bodas.com/" />
-  <meta property="og:site_name" content="13Bodas" />
-  <!-- Cuando tengas tu imagen OG final, reemplaza esta URL -->
-  <meta property="og:image" content="https://13bodas.com/img/13bodas-og.jpg" />
-  <meta property="og:image:alt"
-        content="13Bodas - Invitaciones digitales y filtros AR para bodas y eventos" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content="13Bodas" />
+    <meta
+      property="og:title"
+      content="13Bodas | Invitaciones digitales y filtros AR para bodas, XV y eventos" />
+    <meta
+      property="og:description"
+      content="Invitaciones digitales y filtros AR modernos para bodas, XV años y eventos. Diseños elegantes, personalizados y listos para compartir." />
+    <meta property="og:url" content="https://13bodas.com/" />
+    <meta
+      property="og:image"
+      content="https://13bodas.com/img/og-13bodas.png" />
+    <meta
+      property="og:image:secure_url"
+      content="https://13bodas.com/img/og-13bodas.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="13Bodas - Invitaciones digitales y filtros AR" />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="13Bodas · Invitaciones digitales y filtros AR para bodas y eventos" />
-  <meta name="twitter:description"
-        content="Experiencias digitales elegantes para bodas, XV años y celebraciones especiales." />
-  <meta name="twitter:image" content="https://13bodas.com/img/13bodas-og.jpg" />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="13Bodas | Invitaciones digitales y filtros AR para bodas, XV y eventos" />
+    <meta
+      name="twitter:description"
+      content="Invitaciones digitales y filtros AR para bodas, XV años y eventos especiales. Experiencias elegantes y modernas." />
+    <meta
+      name="twitter:image"
+      content="https://13bodas.com/img/og-13bodas.png" />
 
-  <!-- Favicons -->
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="icon.png" />
+    <!-- Favicons (ajusta rutas) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon.png" />
+    <link rel="mask-icon" href="/icon.svg" color="#ffffff" />
 
-  <!-- Manifest PWA -->
-  <link rel="manifest" href="site.webmanifest" />
+    <meta
+      name="theme-color"
+      content="#05040a"
+      media="(prefers-color-scheme: dark)" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)" />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css" />
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "13Bodas",
-    "url": "https://13bodas.com/",
-    "logo": "https://13bodas.com/img/13%20Bodas%20Logo-01.png",
-    "description": "Invitaciones digitales y experiencias con filtros de realidad aumentada para bodas, XV años y eventos especiales.",
-    "areaServed": "MX",
-    "email": "hola@13bodas.com",
-    "telephone": "+52 811 524 7741"
-  }
-  </script>
-</head>
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet" />
 
-<body class="page-13bodas">
+    <!-- GSAP (defer, como en MagicCam) -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-  <!-- Enlace de salto para accesibilidad -->
-  <a href="#inicio" class="skip-link">Saltar al contenido principal</a>
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Header / Navegación -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#inicio" class="brand" aria-label="13Bodas inicio">
-        <img src="img/13 Bodas Logo-01.png"
-             alt="13Bodas - Invitaciones digitales y filtros AR"
-             class="brand-logo" />
-      </a>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "13Bodas",
+        "url": "https://13bodas.com",
+        "logo": "https://13bodas.com/img/logo-13bodas.png",
+        "sameAs": [
+          "https://www.instagram.com/13bodas",
+          "https://www.facebook.com/13bodas"
+        ],
+        "description": "Invitaciones digitales y filtros de realidad aumentada para bodas, XV años y eventos."
+      }
+    </script>
+  </head>
 
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="sr-only">Abrir menú</span>
-      </button>
+  <body>
+    <!-- Fallback si JS está deshabilitado -->
+    <noscript>
+      <div style="padding: 1rem; text-align: center; background: #111; color: #fff;">
+        Para ver todas las animaciones y experiencias, habilita JavaScript en tu
+        navegador.
+      </div>
+    </noscript>
 
-      <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
-        <ul class="nav-list">
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#como-funciona">Cómo funciona</a></li>
-          <li><a href="#experiencias">Demos</a></li>
-          <li><a href="#faq">Preguntas frecuentes</a></li>
-          <li><a href="#contacto" class="nav-cta">Cotiza tu evento</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+    <!-- Skip link accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-  <!-- Hero -->
-  <main id="inicio" class="site-main">
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-copy">
-          <p class="hero-kicker">Invitaciones digitales · Filtros AR · Experiencias interactivas</p>
-          <h1>
-            Invitaciones y filtros AR que harán tu
-            <span class="text-gradient">boda, XV o evento</span>
-            inolvidable.
-          </h1>
-          <p class="hero-text">
-            En 13Bodas combinamos diseño, tecnología y storytelling para crear invitaciones web elegantes
-            y filtros de realidad aumentada personalizados. Tus invitados podrán vivir tu evento desde el
-            primer mensaje que reciben en su celular.
-          </p>
+    <div class="page-wrapper">
+      <!-- =========================================
+           HEADER
+      ========================================== -->
+      <header>
+        <nav class="nav" aria-label="Navegación principal">
+          <a href="#inicio" class="brand" aria-label="13Bodas - Inicio">
+            <!-- LOGO: ajustado para verse correcto -->
+            <img
+              src="img/13bodas-logo-invitaciones-digitales.svg"
+              alt="13Bodas"
+              style="height:32px; width:auto; display:block;" />
+          </a>
 
-          <div class="hero-actions">
-            <a href="#experiencias" class="btn btn-primary">Ver demos</a>
-            <a href="#contacto" class="btn btn-outline">Solicitar cotización</a>
+          <button
+            class="nav-toggle"
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            id="navToggle">
+            <span class="hamburger" aria-hidden="true"></span>
+          </button>
+
+          <div class="nav-links" id="navLinks" role="navigation">
+            <a href="#soluciones">Servicios</a>
+            <a href="#experiencia-ar">Filtros AR</a>
+            <a href="#paquetes">Invitaciones</a>
+            <a href="#contacto" class="nav-cta">COTIZAR</a>
           </div>
+        </nav>
+      </header>
 
-          <ul class="hero-highlights">
-            <li>Diseños a la medida para bodas, XV años y celebraciones especiales</li>
-            <li>Filtros AR personalizados para Instagram, TikTok o web</li>
-            <li>Enlaces y códigos QR listos para compartir por WhatsApp</li>
-          </ul>
-        </div>
+      <main id="main-content">
+        <!-- =========================================
+             HERO
+        ========================================== -->
+        <section id="inicio" class="hero" aria-labelledby="hero-title">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <span class="hero-badge gsap-fade-up">
+                Bodas, XV años y eventos especiales
+              </span>
 
-        <div class="hero-media">
-          <figure class="mockup-card">
-            <img src="img/mockup-invitacion.jpg"
-                 alt="Ejemplo de invitación digital de 13Bodas en un teléfono móvil" />
-          </figure>
-          <figure class="mockup-card secondary">
-            <img src="img/mockup-filtro-ar.jpg"
-                 alt="Ejemplo de filtro de realidad aumentada para boda" />
-          </figure>
-        </div>
-      </div>
-    </section>
+              <h1 class="hero-title gsap-fade-up" id="hero-title">
+                Invitaciones digitales y filtros AR
+                <span class="highlight">que cuentan tu historia</span>
+              </h1>
 
-    <!-- Servicios -->
-    <section id="servicios" class="section section-services">
-      <div class="container">
-        <header class="section-header">
-          <h2>Lo que hacemos en <span class="brand-inline">13Bodas</span></h2>
-          <p>
-            Diseñamos experiencias digitales completas para tu evento: desde la invitación online hasta los
-            filtros AR que tus invitados usarán durante la fiesta.
-          </p>
-        </header>
-
-        <div class="services-grid">
-          <article class="service-card">
-            <h3>Invitaciones digitales premium</h3>
-            <p>
-              Landing pages diseñadas con la estética de tu evento: fotos, música, itinerario, dress code,
-              mapa, RSVP, mesa de regalos, cuenta regresiva y más.
-            </p>
-            <ul>
-              <li>Diseño responsive para móvil, tablet y escritorio</li>
-              <li>Fácil de compartir por WhatsApp y redes sociales</li>
-              <li>Opciones con animaciones suaves y secciones personalizadas</li>
-            </ul>
-          </article>
-
-          <article class="service-card">
-            <h3>Filtros AR personalizados</h3>
-            <p>
-              Filtros de realidad aumentada a la medida de tu temática. Ideal para boda, XV años o cualquier
-              celebración donde quieras que tus invitados se tomen fotos increíbles.
-            </p>
-            <ul>
-              <li>Filtros para Instagram, TikTok o experiencias web</li>
-              <li>Elementos 3D, glitter, texto animado, nombres y fechas</li>
-              <li>Códigos QR para que todos puedan activarlos fácilmente</li>
-            </ul>
-          </article>
-
-          <article class="service-card">
-            <h3>Experiencia completa del evento</h3>
-            <p>
-              Un solo concepto visual para todo: invitación, filtros y recursos gráficos. Aprovecha
-              al máximo tu tema y haz que todo se vea cohesivo, elegante y memorable.
-            </p>
-            <ul>
-              <li>Concepto creativo y moodboard digital</li>
-              <li>Ajustes previos al evento y pruebas en tu celular</li>
-              <li>Entrega final lista para compartir con tus invitados</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Cómo funciona -->
-    <section id="como-funciona" class="section section-how-it-works">
-      <div class="container">
-        <header class="section-header">
-          <h2>Cómo trabajamos tu experiencia digital</h2>
-          <p>Un proceso claro para que disfrutes el camino sin preocuparte por la parte técnica.</p>
-        </header>
-
-        <ol class="steps-list">
-          <li class="step-item">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Cuéntanos sobre tu evento</h3>
-              <p>
-                Nos compartes la fecha, ciudad, tipo de evento, temática y qué te interesa:
-                invitación digital, filtros AR o ambos.
+              <p class="hero-subtitle gsap-fade-up">
+                En 13Bodas transformamos tu evento en una experiencia digital
+                memorable: invitaciones web elegantes y filtros de realidad
+                aumentada listos para compartir en redes.
               </p>
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Diseño y propuesta</h3>
-              <p>
-                Creamos una propuesta visual alineada a tu estilo. Podrás revisar textos, colores,
-                fotos de referencia y ajustes necesarios.
-              </p>
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Pruebas en tu celular</h3>
-              <p>
-                Probamos la invitación y los filtros en distintos dispositivos para asegurarnos
-                de que todo funcione bien y se vea espectacular.
-              </p>
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Entrega lista para compartir</h3>
-              <p>
-                Te entregamos tus enlaces y códigos QR finales para que los compartas con tus invitados
-                por WhatsApp, redes sociales o donde tú prefieras.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
 
-    <!-- Experiencias / Demos -->
-    <section id="experiencias" class="section section-experiences">
-      <div class="container">
-        <header class="section-header">
-          <h2>Una probadita de nuestras experiencias</h2>
-          <p>
-            Estos son ejemplos de cómo se ven nuestras invitaciones digitales y filtros AR.
-            Tu evento tendrá un diseño completamente personalizado.
-          </p>
-        </header>
-
-        <div class="experiences-grid">
-          <article class="experience-card">
-            <div class="experience-media">
-              <img src="img/demo-invitacion-boda.jpg"
-                   alt="Demo de invitación digital para boda" />
-            </div>
-            <div class="experience-body">
-              <h3>Demo de invitación digital</h3>
-              <p>
-                Explora una invitación web con secciones de información, itinerario, mapa y
-                confirmación de asistencia (RSVP).
-              </p>
-              <a href="https://demo.13bodas.com/invitacion"
-                 class="link-demo"
-                 target="_blank" rel="noopener">Ver demo de invitación</a>
-            </div>
-          </article>
-
-          <article class="experience-card">
-            <div class="experience-media">
-              <img src="img/demo-filtro-boda.jpg"
-                   alt="Demo de filtro AR para boda" />
-            </div>
-            <div class="experience-body">
-              <h3>Demo de filtro AR</h3>
-              <p>
-                Prueba un filtro de realidad aumentada pensado para bodas y XV. Ideal para
-                que tus invitados se tomen fotos durante la fiesta.
-              </p>
-              <a href="https://demo.13bodas.com/filtro-ar"
-                 class="link-demo"
-                 target="_blank" rel="noopener">Probar filtro AR</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="experiences-note">
-          <p>
-            ¿Te gustaría algo más temático, como <strong>Alice in Wonderland</strong>, playa,
-            jardín o un concepto totalmente diferente? Podemos adaptarlo a tu historia.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonios -->
-    <section class="section section-testimonials">
-      <div class="container">
-        <header class="section-header">
-          <h2>Historias que ya se vivieron con 13Bodas</h2>
-          <p>Comentarios de parejas e invitados que usaron nuestras invitaciones y filtros.</p>
-        </header>
-
-        <div class="testimonials-grid">
-          <article class="testimonial-card">
-            <p class="testimonial-text">
-              “La invitación digital fue un éxito, todos la recibieron por WhatsApp y el filtro
-              AR se volvió el hit de la pista de baile.”
-            </p>
-            <p class="testimonial-author">Ana &amp; Luis · Boda en Monterrey</p>
-          </article>
-
-          <article class="testimonial-card">
-            <p class="testimonial-text">
-              “Nuestros invitados no dejaban de usar el filtro. Tenemos un montón de fotos y
-              videos increíbles del evento.”
-            </p>
-            <p class="testimonial-author">Renata · XV años temática Wonderland</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="section section-faq">
-      <div class="container">
-        <header class="section-header">
-          <h2>Preguntas frecuentes</h2>
-          <p>Resolvemos algunas de las dudas más comunes antes de contratar.</p>
-        </header>
-
-        <div class="faq-grid" itemscope itemtype="https://schema.org/FAQPage">
-          <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 itemprop="name">¿Solo trabajan con bodas?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p itemprop="text">
-                No. Aunque somos especialistas en bodas, también creamos experiencias para XV años,
-                aniversarios, bautizos, cumpleaños y eventos corporativos.
-              </p>
-            </div>
-          </article>
-
-          <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 itemprop="name">¿Con cuánto tiempo de anticipación debo contratar?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p itemprop="text">
-                Lo ideal es de 4 a 6 semanas antes de enviar las invitaciones. Si tu evento está muy próximo,
-                escríbenos y revisamos opciones exprés según la carga de trabajo.
-              </p>
-            </div>
-          </article>
-
-          <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 itemprop="name">¿Necesito una app especial para usar los filtros?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p itemprop="text">
-                Depende del tipo de filtro. Algunos se usan directamente en Instagram o TikTok y otros se
-                activan desde un enlace web mediante la cámara del celular. Te guiamos en la mejor opción
-                según tus invitados.
-              </p>
-            </div>
-          </article>
-
-          <article class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-            <h3 itemprop="name">¿Ofrecen paquetes o todo es personalizado?</h3>
-            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <p itemprop="text">
-                Tenemos propuestas base para hacer más ágil la cotización, pero siempre personalizamos el diseño,
-                los textos y los detalles a tu evento y presupuesto.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contacto / CTA -->
-    <section id="contacto" class="section section-contact">
-      <div class="container contact-inner">
-        <header class="section-header">
-          <h2>¿Listo para empezar tu invitación o filtro AR?</h2>
-          <p>
-            Cuéntanos sobre tu boda, XV o evento especial y te enviaremos una propuesta personalizada.
-            Respondemos la mayoría de los mensajes en menos de 24 horas.
-          </p>
-        </header>
-
-        <div class="contact-grid">
-          <!-- Formulario con Formspree -->
-          <form action="https://formspree.io/f/mzzqrjwb"
-                method="POST"
-                class="contact-form"
-                id="contactForm">
-            <input type="hidden" name="_subject" value="✨ Nuevo contacto desde 13Bodas">
-            <input type="hidden" name="_next" value="https://13bodas.com/#gracias">
-            <input type="hidden" name="_language" value="es">
-
-            <div class="field-group">
-              <label for="nombre">Tu nombre <span class="required">*</span></label>
-              <input type="text" id="nombre" name="nombre" required
-                     autocomplete="name" placeholder="Ej: Mariana Torres">
-            </div>
-
-            <div class="field-row">
-              <div class="field-group">
-                <label for="email">Correo <span class="required">*</span></label>
-                <input type="email" id="email" name="email" required
-                       autocomplete="email" placeholder="tu@email.com">
+              <div class="hero-meta gsap-fade-up">
+                <span>
+                  <span class="hero-meta-dot" aria-hidden="true"></span>
+                  Sin apps, directo desde el navegador
+                </span>
+                <span>
+                  <span class="hero-meta-dot" aria-hidden="true"></span>
+                  Ideal para bodas, XV años y eventos sociales
+                </span>
               </div>
 
-              <div class="field-group">
-                <label for="telefono">WhatsApp</label>
-                <input type="tel" id="telefono" name="telefono"
-                       autocomplete="tel" placeholder="+52 811 524 7741">
-              </div>
-            </div>
-
-            <div class="field-row">
-              <div class="field-group">
-                <label for="tipo-evento">Tipo de evento <span class="required">*</span></label>
-                <select id="tipo-evento" name="tipo_evento" required>
-                  <option value="">Selecciona...</option>
-                  <option value="boda">💒 Boda</option>
-                  <option value="xv">👑 XV años</option>
-                  <option value="bautizo">👶 Bautizo</option>
-                  <option value="cumpleaños">🎂 Cumpleaños</option>
-                  <option value="corporativo">🏢 Evento corporativo</option>
-                  <option value="otro">🎉 Otro</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="fecha">Fecha aproximada</label>
-                <input type="date" id="fecha" name="fecha">
-              </div>
-            </div>
-
-            <div class="field-group">
-              <label for="mensaje">Cuéntanos tu idea (opcional)</label>
-              <textarea id="mensaje" name="mensaje" rows="3"
-                        placeholder="Ej: Quiero una invitación digital y un filtro AR con tema elegante en tonos azul y dorado."></textarea>
-            </div>
-
-            <div class="form-footer">
-              <p class="form-note">
-                Te responderemos en menos de 24 horas.
-              </p>
-              <button type="submit" class="btn btn-primary btn-submit">
-                Enviar solicitud
-              </button>
-            </div>
-          </form>
-
-          <!-- Info de contacto alternativa -->
-          <aside class="contact-aside">
-            <h3>¿Prefieres escribirnos directo?</h3>
-            <ul class="contact-list">
-              <li>
-                <span class="contact-label">WhatsApp</span>
-                <a href="https://wa.me/528115247741" target="_blank" rel="noopener">
-                  +52 811 524 7741
+              <div class="hero-cta-group gsap-fade-up">
+                <a href="#experiencia-ar" class="btn-primary">
+                  Ver filtros AR en acción
                 </a>
-              </li>
-              <li>
-                <span class="contact-label">Correo</span>
-                <a href="mailto:hola@13bodas.com">hola@13bodas.com</a>
-              </li>
-            </ul>
-            <p class="contact-small">
-              Atendemos principalmente en México, pero podemos crear experiencias digitales para eventos
-              en cualquier parte del mundo.
-            </p>
-          </aside>
+                <a href="#contacto" class="btn-ghost">
+                  Cotizar mi evento
+                </a>
+              </div>
+            </div>
+
+            <!-- HERO VISUAL / MOCKUP CELULAR -->
+            <div class="hero-visual gsap-scale-in" aria-hidden="true">
+              <div class="hero-phone">
+                <div class="hero-phone-frame">
+                  <div class="hero-phone-notch"></div>
+                  <div class="hero-phone-screen">
+                    <!-- IMPORTANTE:
+                         Esta imagen ahora llena todo el área del celular
+                         gracias al object-fit: cover y height:100% -->
+                    <img
+                      src="img/preview-filtro-ar-13bodas.jpg"
+                      alt="Ejemplo de filtro AR de 13Bodas"
+                      style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        display: block;
+                      " />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================
+             SOLUCIONES / SERVICIOS
+        ========================================== -->
+        <section id="soluciones" class="services section-padding" aria-labelledby="soluciones-title">
+          <div class="section-inner">
+            <header class="section-header">
+              <div class="section-kicker">Servicios 13Bodas</div>
+              <h2 class="section-title" id="soluciones-title">
+                Soluciones digitales para tu boda, XV o evento
+              </h2>
+              <p class="section-description">
+                Te acompañamos desde la invitación hasta los recuerdos
+                compartidos en redes con experiencias pensadas para tus
+                invitados.
+              </p>
+            </header>
+
+            <div class="steps-grid">
+              <article class="step-card">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Invitaciones web personalizadas</h3>
+                <p class="step-text">
+                  Páginas web elegantes con toda la información de tu evento:
+                  fecha, ubicación, dress code, lista de regalos, confirmación
+                  de asistencia y más.
+                </p>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Filtros AR para invitados</h3>
+                <p class="step-text">
+                  Filtros de realidad aumentada diseñados a la medida de tu
+                  concepto, listos para usarse escaneando un código QR o desde
+                  un enlace.
+                </p>
+              </article>
+
+              <article class="step-card">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Experiencias integrales</h3>
+                <p class="step-text">
+                  Integración de invitación digital + filtros AR + recursos para
+                  imprimir QR y compartir en redes, todo bajo una misma línea
+                  creativa.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================
+             EXPERIENCIA AR / FILTROS
+        ========================================== -->
+        <section
+          id="experiencia-ar"
+          class="ar-showcase section-padding"
+          aria-labelledby="experiencia-ar-title">
+          <div class="section-inner">
+            <header class="section-header">
+              <div class="section-kicker">Filtros AR</div>
+              <h2 class="section-title" id="experiencia-ar-title">
+                Filtros que cuentan tu historia
+              </h2>
+              <p class="section-description">
+                Sin descargar apps extra: tus invitados escanean un código QR o
+                abren un enlace y la experiencia se ejecuta directamente en su
+                navegador o red social compatible.
+              </p>
+            </header>
+
+            <div class="benefits-grid">
+              <ul class="benefits-list">
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">✅</div>
+                  <div class="benefit-body">
+                    <strong>Interacción:</strong>
+                    tus invitados participan y generan contenido del evento.
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">🎨</div>
+                  <div class="benefit-body">
+                    <strong>Personalización:</strong>
+                    adaptamos la experiencia a tu temática y paleta de colores.
+                  </div>
+                </li>
+                <li class="benefit-item">
+                  <div class="benefit-icon" aria-hidden="true">📸</div>
+                  <div class="benefit-body">
+                    <strong>Recuerdos:</strong>
+                    fotos y videos ideales para compartir en redes.
+                  </div>
+                </li>
+              </ul>
+
+              <aside class="benefits-panel" aria-label="Cotización filtros AR">
+                <h3>Filtro o experiencia AR para tu evento</h3>
+                <p>
+                  Los filtros y escenas AR se cotizan por separado según la
+                  complejidad de la idea y el alcance del proyecto.
+                </p>
+                <p>
+                  Cuéntanos el tipo de evento, fecha y temática y te
+                  responderemos con una propuesta personalizada.
+                </p>
+                <a href="#contacto" class="btn-primary">
+                  COTIZAR FILTRO O EXPERIENCIA AR
+                </a>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================
+             PAQUETES / INVITACIONES
+        ========================================== -->
+        <section
+          id="paquetes"
+          class="pricing section-padding"
+          aria-labelledby="paquetes-title">
+          <div class="section-inner">
+            <header class="section-header">
+              <div class="section-kicker">Invitaciones digitales</div>
+              <h2 class="section-title" id="paquetes-title">
+                Invitaciones que se sienten tan especiales como el evento
+              </h2>
+              <p class="section-description">
+                Diseñamos tu invitación digital como una mini landing page:
+                información clara, diseño elegante y elementos interactivos para
+                que tus invitados tengan todo a un clic.
+              </p>
+            </header>
+
+            <div class="usecases-grid">
+              <article class="usecase-card">
+                <p class="usecase-pill">Bodas</p>
+                <h3 class="usecase-title">Románticas y atemporales</h3>
+                <p class="usecase-text">
+                  Diseños elegantes que combinan con tu decoración, tipografías
+                  cuidadas y fotografías de la pareja.
+                </p>
+                <p class="usecase-tag">
+                  Sección de historia, itinerario, dress code y ubicación.
+                </p>
+              </article>
+
+              <article class="usecase-card">
+                <p class="usecase-pill">XV años</p>
+                <h3 class="usecase-title">Temáticas y llenas de color</h3>
+                <p class="usecase-text">
+                  Invitaciones con personalidad propia: desde Wonderland hasta
+                  neón moderno. Todo alineado al concepto de la fiesta.
+                </p>
+                <p class="usecase-tag">
+                  Ideal para acompañar con filtros AR temáticos.
+                </p>
+              </article>
+
+              <article class="usecase-card">
+                <p class="usecase-pill">Eventos sociales</p>
+                <h3 class="usecase-title">Aniversarios, bautizos y más</h3>
+                <p class="usecase-text">
+                  Invitaciones limpias y fáciles de compartir por WhatsApp,
+                  correo o redes sociales.
+                </p>
+                <p class="usecase-tag">
+                  Adaptamos secciones según lo que necesites comunicar.
+                </p>
+              </article>
+
+              <article class="usecase-card">
+                <p class="usecase-pill">Empresarial</p>
+                <h3 class="usecase-title">Lanzamientos y activaciones</h3>
+                <p class="usecase-text">
+                  Páginas de evento que integran registro, mapa, agenda y
+                  branding corporativo.
+                </p>
+                <p class="usecase-tag">
+                  Perfectas para combinar con experiencias AR de marca.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================
+             CONTACTO
+        ========================================== -->
+        <section
+          id="contacto"
+          class="contact-section"
+          aria-labelledby="contacto-title">
+          <div class="section-inner">
+            <header class="section-header">
+              <div class="section-kicker">Contacto</div>
+              <h2 class="section-title" id="contacto-title">
+                ¿Listo para platicar de tu evento?
+              </h2>
+              <p class="section-description">
+                Cuéntanos si estás planeando una boda, XV años u otro evento
+                especial y te responderemos con una propuesta personalizada.
+              </p>
+            </header>
+
+            <div class="contact-grid">
+              <div class="contact-text">
+                <div class="contact-info-card">
+                  <h3>💬 Escríbenos por WhatsApp</h3>
+                  <p>
+                    Si prefieres una conversación directa, mándanos un mensaje
+                    y platicamos de tu idea.
+                  </p>
+                  <a
+                    href="https://wa.me/528115247741?text=Hola%2C%20me%20interesan%20las%20invitaciones%20digitales%20y%20filtros%20AR%20de%2013Bodas"
+                    class="btn-whatsapp"
+                    target="_blank"
+                    rel="noopener">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="currentColor">
+                      <path
+                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Chatear por WhatsApp
+                  </a>
+                </div>
+
+                <div class="contact-benefits">
+                  <p><strong>¿Por qué 13Bodas?</strong></p>
+                  <ul>
+                    <li>✨ Diseños modernos y elegantes</li>
+                    <li>📱 Invitaciones y filtros pensados para móviles</li>
+                    <li>🎨 Experiencias visuales alineadas al concepto</li>
+                    <li>⚡ Comunicación rápida durante todo el proceso</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <h3>✉️ Cuéntanos de tu evento</h3>
+                <p class="form-intro">
+                  Solo necesitamos lo básico para enviarte una propuesta
+                  personalizada.
+                </p>
+
+                <!-- Puedes conectar este form con Formspree o tu backend -->
+                <form
+                  action="https://formspree.io/f/xxxxxxxx"
+                  method="POST"
+                  class="contact-form"
+                  id="contactForm">
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="✨ Nuevo contacto desde 13Bodas" />
+                  <input
+                    type="hidden"
+                    name="_language"
+                    value="es" />
+
+                  <div class="field-group">
+                    <label for="nombre"
+                      >Nombre <span class="required">*</span></label>
+                    <input
+                      type="text"
+                      id="nombre"
+                      name="nombre"
+                      required
+                      autocomplete="name"
+                      placeholder="Ej: Ana y Carlos" />
+                  </div>
+
+                  <div class="field-row">
+                    <div class="field-group">
+                      <label for="email"
+                        >Correo <span class="required">*</span></label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        autocomplete="email"
+                        placeholder="tu@email.com" />
+                    </div>
+
+                    <div class="field-group">
+                      <label for="telefono">WhatsApp</label>
+                      <input
+                        type="tel"
+                        id="telefono"
+                        name="telefono"
+                        autocomplete="tel"
+                        placeholder="+52 81 1234 5678" />
+                    </div>
+                  </div>
+
+                  <div class="field-row">
+                    <div class="field-group">
+                      <label for="tipo-evento"
+                        >Tipo de evento <span class="required">*</span></label>
+                      <select id="tipo-evento" name="tipo_evento" required>
+                        <option value="">Selecciona...</option>
+                        <option value="boda">💒 Boda</option>
+                        <option value="xv">👑 XV años</option>
+                        <option value="bautizo">👶 Bautizo</option>
+                        <option value="aniversario">💍 Aniversario</option>
+                        <option value="corporativo">🏢 Corporativo</option>
+                        <option value="otro">🎉 Otro</option>
+                      </select>
+                    </div>
+
+                    <div class="field-group">
+                      <label for="fecha">Fecha aproximada</label>
+                      <input type="date" id="fecha" name="fecha" />
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="mensaje">Detalles del evento</label>
+                    <textarea
+                      id="mensaje"
+                      name="mensaje"
+                      rows="3"
+                      placeholder="Ej: Boda en otoño con temática elegante, me interesa invitación digital y filtro AR para pista de baile..."></textarea>
+                  </div>
+
+                  <div class="form-footer">
+                    <p class="form-note">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="currentColor">
+                        <path
+                          d="M8 0a8 8 0 100 16A8 8 0 008 0zm.93 12H7.07V7h1.86v5zm0-6H7.07V4h1.86v2z" />
+                      </svg>
+                      Te responderemos en menos de 24 horas.
+                    </p>
+                    <button type="submit" class="btn-primary btn-submit">
+                      Enviar solicitud
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- =========================================
+           FOOTER
+      ========================================== -->
+      <footer>
+        <div class="footer-inner">
+          <div>
+            © <span id="year"></span> 13Bodas. Todos los derechos reservados.
+          </div>
+          <div class="footer-links">
+            <a href="#inicio">Ir al inicio</a>
+            <a href="https://magiccam.13bodas.com" target="_blank" rel="noopener">
+              Ver MagicCam
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-brand">
-        <span class="brand-inline">13Bodas</span> · Invitaciones digitales &amp; filtros AR para eventos.
-      </p>
-      <p class="footer-meta">
-        &copy; <span id="year"></span> 13Bodas.com · Todos los derechos reservados.
-      </p>
-      <nav class="footer-nav" aria-label="Enlaces secundarios">
-        <a href="#inicio">Inicio</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+      </footer>
     </div>
-  </footer>
 
-  <!-- Scripts -->
-  <script src="js/app.js" defer></script>
-</body>
+    <!-- App JS: se carga al final, después de GSAP (para que gsap exista) -->
+    <script src="js/app.js"></script>
+  </body>
 </html>
