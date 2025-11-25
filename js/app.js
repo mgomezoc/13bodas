@@ -1,711 +1,325 @@
-/**
- * 13BODAS - MAIN JAVASCRIPT
- * Dark Luxury Tech Experience
- */
+// app.js
 
-(function() {
-  'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  const page = new MagicCamPage();
+  page.init();
+});
 
-  // ===========================================
-  // UTILS & HELPERS
-  // ===========================================
+class MagicCamPage {
+  constructor() {
+    this.navbar = document.querySelector('.navbar');
+    this.navToggle = document.querySelector('[data-nav-toggle]');
+    this.navMenu = document.querySelector('[data-nav-menu]');
+    this.scrollLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
 
-  const $ = (selector) => document.querySelector(selector);
-  const $$ = (selector) => document.querySelectorAll(selector);
+    this.heroSection = document.querySelector('.hero');
+    this.heroBadge = document.querySelector('.hero-badge');
+    this.heroTitle = document.querySelector('.hero-title');
+    this.heroDescription = document.querySelector('.hero-description');
+    this.heroPrimaryCta = document.querySelector('.hero-cta-primary');
+    this.heroSecondaryCta = document.querySelector('.hero-cta-secondary');
+    this.heroMedia = document.querySelector('.hero-media');
 
-  const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  };
+    this.faqItems = document.querySelectorAll('[data-faq-item]');
+  }
 
-  // ===========================================
-  // NAVIGATION
-  // ===========================================
-
-  class Navigation {
-    constructor() {
-      this.header = $('#header');
-      this.navToggle = $('#navToggle');
-      this.navMenu = $('#navMenu');
-      this.navLinks = $$('.nav-link, .nav-cta');
-      this.lastScroll = 0;
-
-      this.init();
+  init() {
+    if (typeof gsap === 'undefined') {
+      console.warn('GSAP no está cargado, se usará el fallback simple de animaciones.');
+      this.fallbackAnimations();
+      this.initNavbar();
+      this.initSmoothScroll();
+      this.initFAQAccordion();
+      return;
     }
 
-    init() {
-      this.setupScrollHeader();
-      this.setupMobileMenu();
-      this.setupSmoothScroll();
-      this.setupActiveLink();
+    // Si GSAP está disponible, lo marcamos en el body
+    document.body.classList.add('gsap-loaded');
+
+    // Registrar ScrollTrigger si existe
+    if (typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
     }
 
-    setupScrollHeader() {
-      window.addEventListener('scroll', debounce(() => {
-        const currentScroll = window.pageYOffset;
+    this.initNavbar();
+    this.initSmoothScroll();
+    this.initFAQAccordion();
+    this.initHeroAnimations();
+    this.initSectionRevealAnimations();
+    this.initCardsAnimations();
+  }
 
-        if (currentScroll > 100) {
-          this.header.classList.add('scrolled');
-        } else {
-          this.header.classList.remove('scrolled');
-        }
+  // ==========================
+  // NAVBAR & SCROLL
+  // ==========================
 
-        this.lastScroll = currentScroll;
-      }, 10));
-    }
-
-    setupMobileMenu() {
-      if (!this.navToggle) return;
-
+  initNavbar() {
+    if (this.navToggle && this.navMenu) {
       this.navToggle.addEventListener('click', () => {
-        const isExpanded = this.navToggle.getAttribute('aria-expanded') === 'true';
-
-        this.navToggle.setAttribute('aria-expanded', !isExpanded);
-        this.navToggle.classList.toggle('active');
-        this.navMenu.classList.toggle('active');
-        document.body.style.overflow = isExpanded ? '' : 'hidden';
+        const expanded = this.navToggle.getAttribute('aria-expanded') === 'true';
+        this.navToggle.setAttribute('aria-expanded', String(!expanded));
+        this.navMenu.classList.toggle('is-open');
       });
+    }
 
-      // Close menu when clicking on a link
-      this.navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          this.navToggle.classList.remove('active');
-          this.navMenu.classList.remove('active');
-          this.navToggle.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
+    // Cambiar estilo de navbar al hacer scroll
+    window.addEventListener('scroll', () => {
+      if (!this.navbar) return;
+      if (window.scrollY > 10) {
+        this.navbar.classList.add('navbar-scrolled');
+      } else {
+        this.navbar.classList.remove('navbar-scrolled');
+      }
+    });
+  }
+
+  initSmoothScroll() {
+    if (!this.scrollLinks || this.scrollLinks.length === 0) return;
+
+    this.scrollLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.charAt(0) !== '#') return;
+
+        const targetEl = document.querySelector(href);
+        if (!targetEl) return;
+
+        e.preventDefault();
+
+        const headerOffset = this.navbar ? this.navbar.offsetHeight : 0;
+        const elementPosition = targetEl.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset - 16;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
-      });
 
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!this.navMenu.contains(e.target) && !this.navToggle.contains(e.target)) {
-          this.navToggle.classList.remove('active');
-          this.navMenu.classList.remove('active');
-          this.navToggle.setAttribute('aria-expanded', 'false');
-          document.body.style.overflow = '';
+        // Cerrar menú móvil si está abierto
+        if (this.navMenu && this.navMenu.classList.contains('is-open')) {
+          this.navMenu.classList.remove('is-open');
+          if (this.navToggle) {
+            this.navToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+  }
+
+  // ==========================
+  // HERO ANIMATIONS
+  // ==========================
+
+  initHeroAnimations() {
+    if (!this.heroSection || typeof gsap === 'undefined') return;
+
+    // Aseguramos que el estado inicial coincida con el CSS:
+    // opacity: 0 y algo de translate para los elementos que entran.
+    gsap.set(
+      [
+        this.heroBadge,
+        this.heroTitle,
+        this.heroDescription,
+        this.heroPrimaryCta,
+        this.heroSecondaryCta,
+        this.heroMedia
+      ].filter(Boolean),
+      { opacity: 0, y: 20 }
+    );
+
+    const tl = gsap.timeline({
+      defaults: { duration: 0.7, ease: 'power3.out' }
+    });
+
+    if (this.heroBadge) {
+      tl.to(this.heroBadge, { opacity: 1, y: 0 });
+    }
+
+    if (this.heroTitle) {
+      tl.to(this.heroTitle, { opacity: 1, y: 0 }, '-=0.4');
+    }
+
+    if (this.heroDescription) {
+      tl.to(this.heroDescription, { opacity: 1, y: 0 }, '-=0.4');
+    }
+
+    const ctas = [this.heroPrimaryCta, this.heroSecondaryCta].filter(Boolean);
+    if (ctas.length) {
+      tl.to(ctas, { opacity: 1, y: 0, stagger: 0.1 }, '-=0.4');
+    }
+
+    if (this.heroMedia) {
+      tl.to(this.heroMedia, { opacity: 1, y: 0 }, '-=0.5');
+    }
+  }
+
+  // ==========================
+  // SCROLL REVEAL SECTIONS
+  // ==========================
+
+  initSectionRevealAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    const sections = document.querySelectorAll('[data-section]');
+    if (!sections.length) return;
+
+    sections.forEach(section => {
+      const elements = section.querySelectorAll('[data-aos]');
+      if (!elements.length) return;
+
+      // Estado inicial para que gsap.to tenga de dónde partir
+      gsap.set(elements, { opacity: 0, y: 30 });
+
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 75%',
+          once: true
+        }
+      });
+    });
+  }
+
+  // ==========================
+  // CARDS (SERVICIOS, PASOS, TESTIMONIOS, ETC.)
+  // ==========================
+
+  initCardsAnimations() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+    // Ejemplo: tarjetas de servicios
+    const serviceCards = document.querySelectorAll('.service-card[data-aos]');
+    if (serviceCards.length) {
+      gsap.set(serviceCards, { opacity: 0, y: 40 });
+
+      gsap.to(serviceCards, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.services-section',
+          start: 'top 75%',
+          once: true
         }
       });
     }
 
-    setupSmoothScroll() {
-      this.navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          const href = link.getAttribute('href');
+    // Ejemplo: pasos
+    const stepCards = document.querySelectorAll('.step-card[data-aos]');
+    if (stepCards.length) {
+      gsap.set(stepCards, { opacity: 0, y: 40 });
 
-          if (href && href.startsWith('#')) {
-            e.preventDefault();
-            const target = $(href);
+      gsap.to(stepCards, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.steps-section',
+          start: 'top 75%',
+          once: true
+        }
+      });
+    }
 
-            if (target) {
-              const headerOffset = 80;
-              const elementPosition = target.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    // Ejemplo: eventos
+    const eventCards = document.querySelectorAll('.event-card[data-aos]');
+    if (eventCards.length) {
+      gsap.set(eventCards, { opacity: 0, y: 40 });
 
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
+      gsap.to(eventCards, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.events-section',
+          start: 'top 75%',
+          once: true
+        }
+      });
+    }
+
+    // Ejemplo: testimonios
+    const testimonialCards = document.querySelectorAll('.testimonial-card[data-aos]');
+    if (testimonialCards.length) {
+      gsap.set(testimonialCards, { opacity: 0, y: 40 });
+
+      gsap.to(testimonialCards, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.testimonials-section, .testimonials-grid',
+          start: 'top 75%',
+          once: true
+        }
+      });
+    }
+  }
+
+  // ==========================
+  // FAQ
+  // ==========================
+
+  initFAQAccordion() {
+    if (!this.faqItems || this.faqItems.length === 0) return;
+
+    this.faqItems.forEach(item => {
+      const button = item.querySelector('[data-faq-trigger]');
+      const content = item.querySelector('[data-faq-content]');
+
+      if (!button || !content) return;
+
+      button.addEventListener('click', () => {
+        const isExpanded = item.classList.contains('is-open');
+
+        // Cerrar todos
+        this.faqItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('is-open');
+            const otherButton = other.querySelector('[data-faq-trigger]');
+            const otherContent = other.querySelector('[data-faq-content]');
+            if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
+            if (otherContent) {
+              otherContent.style.maxHeight = null;
             }
           }
         });
-      });
-    }
 
-    setupActiveLink() {
-      const sections = $$('section[id]');
+        // Toggle actual
+        item.classList.toggle('is-open', !isExpanded);
+        button.setAttribute('aria-expanded', String(!isExpanded));
 
-      window.addEventListener('scroll', debounce(() => {
-        const scrollY = window.pageYOffset;
-
-        sections.forEach(section => {
-          const sectionHeight = section.offsetHeight;
-          const sectionTop = section.offsetTop - 100;
-          const sectionId = section.getAttribute('id');
-          const navLink = $(`.nav-link[href="#${sectionId}"]`);
-
-          if (navLink && scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            $$('.nav-link').forEach(link => link.classList.remove('active'));
-            navLink.classList.add('active');
-          }
-        });
-      }, 100));
-    }
-  }
-
-  // ===========================================
-  // GSAP ANIMATIONS
-  // ===========================================
-
-  class Animations {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      // Check if GSAP is loaded
-      if (typeof gsap === 'undefined') {
-        console.warn('GSAP not loaded, animations disabled');
-        this.fallbackAnimations();
-        return;
-      }
-
-      // Register ScrollTrigger plugin
-      if (typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-      }
-
-      this.setupHeroAnimations();
-      this.setupScrollAnimations();
-      this.setupParallaxEffects();
-    }
-
-    setupHeroAnimations() {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.from('.hero-badge', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      })
-      .from('.hero-title', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      }, '-=0.4')
-      .from('.hero-description', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      }, '-=0.4')
-      .from('.hero-stats', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      }, '-=0.3')
-      .from('.hero-cta', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      }, '-=0.3')
-      .from('.hero-visual', {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.8
-      }, '-=0.6')
-      .from('.scroll-indicator', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6
-      }, '-=0.4');
-    }
-
-    setupScrollAnimations() {
-      // Fade up animations
-      gsap.utils.toArray('[data-aos="fade-up"]').forEach(element => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 0,
-          y: 50,
-          duration: 0.8,
-          ease: 'power3.out'
-        });
-      });
-
-      // Fade right animations
-      gsap.utils.toArray('[data-aos="fade-right"]').forEach(element => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 0,
-          x: -50,
-          duration: 0.8,
-          ease: 'power3.out'
-        });
-      });
-
-      // Fade left animations
-      gsap.utils.toArray('[data-aos="fade-left"]').forEach(element => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 0,
-          x: 50,
-          duration: 0.8,
-          ease: 'power3.out'
-        });
-      });
-
-      // Zoom in animations
-      gsap.utils.toArray('[data-aos="zoom-in"]').forEach(element => {
-        gsap.from(element, {
-          scrollTrigger: {
-            trigger: element,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          opacity: 0,
-          scale: 0.8,
-          duration: 0.8,
-          ease: 'power3.out'
-        });
-      });
-
-      // Service cards stagger
-      gsap.from('.service-card', {
-        scrollTrigger: {
-          trigger: '.services-grid',
-          start: 'top 70%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-
-      // Package cards stagger
-      gsap.from('.package-card', {
-        scrollTrigger: {
-          trigger: '.packages-grid',
-          start: 'top 70%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-
-      // Testimonial cards stagger
-      gsap.from('.testimonial-card', {
-        scrollTrigger: {
-          trigger: '.testimonials-grid',
-          start: 'top 70%'
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-    }
-
-    setupParallaxEffects() {
-      // Phone mockup parallax
-      gsap.to('.phone-mockup', {
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        },
-        y: 100,
-        ease: 'none'
-      });
-
-      // Hero glow parallax
-      gsap.to('.hero-glow', {
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        },
-        y: 150,
-        scale: 1.3,
-        ease: 'none'
-      });
-    }
-
-    fallbackAnimations() {
-      // Simple CSS class-based animations for browsers without GSAP
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('aos-animate');
-          }
-        });
-      }, {
-        threshold: 0.1
-      });
-
-      $$('[data-aos]').forEach(el => observer.observe(el));
-    }
-  }
-
-  // ===========================================
-  // FORM HANDLING
-  // ===========================================
-
-  class FormHandler {
-    constructor() {
-      this.form = $('#contactForm');
-      this.init();
-    }
-
-    init() {
-      if (!this.form) return;
-
-      this.setupFormValidation();
-      this.setupFormSubmit();
-    }
-
-    setupFormValidation() {
-      const inputs = this.form.querySelectorAll('input, select, textarea');
-
-      inputs.forEach(input => {
-        input.addEventListener('blur', () => this.validateField(input));
-        input.addEventListener('input', () => this.clearError(input));
-      });
-    }
-
-    validateField(field) {
-      if (field.hasAttribute('required') && !field.value.trim()) {
-        this.showError(field, 'Este campo es obligatorio');
-        return false;
-      }
-
-      if (field.type === 'email' && field.value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(field.value)) {
-          this.showError(field, 'Por favor ingresa un email válido');
-          return false;
-        }
-      }
-
-      if (field.type === 'tel' && field.value) {
-        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
-        if (!phoneRegex.test(field.value)) {
-          this.showError(field, 'Por favor ingresa un teléfono válido');
-          return false;
-        }
-      }
-
-      this.clearError(field);
-      return true;
-    }
-
-    showError(field, message) {
-      this.clearError(field);
-
-      field.classList.add('error');
-      const errorEl = document.createElement('span');
-      errorEl.className = 'field-error';
-      errorEl.style.color = '#ff4444';
-      errorEl.style.fontSize = '0.875rem';
-      errorEl.style.marginTop = '0.25rem';
-      errorEl.textContent = message;
-
-      field.parentElement.appendChild(errorEl);
-    }
-
-    clearError(field) {
-      field.classList.remove('error');
-      const errorEl = field.parentElement.querySelector('.field-error');
-      if (errorEl) {
-        errorEl.remove();
-      }
-    }
-
-    setupFormSubmit() {
-      this.form.addEventListener('submit', (e) => {
-        const inputs = this.form.querySelectorAll('input[required], select[required], textarea[required]');
-        let isValid = true;
-
-        inputs.forEach(input => {
-          if (!this.validateField(input)) {
-            isValid = false;
-          }
-        });
-
-        if (!isValid) {
-          e.preventDefault();
-
-          // Scroll to first error
-          const firstError = this.form.querySelector('.error');
-          if (firstError) {
-            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-
-          return false;
-        }
-
-        // Show loading state
-        const submitBtn = this.form.querySelector('.btn-submit');
-        if (submitBtn) {
-          submitBtn.textContent = 'Enviando...';
-          submitBtn.disabled = true;
+        if (!isExpanded) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+          content.style.maxHeight = null;
         }
       });
-    }
+    });
   }
 
-  // ===========================================
-  // PERFORMANCE OPTIMIZATIONS
-  // ===========================================
+  // ==========================
+  // FALLBACK SIN GSAP
+  // ==========================
 
-  class PerformanceOptimizer {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      this.lazyLoadImages();
-      this.prefetchLinks();
-    }
-
-    lazyLoadImages() {
-      const images = $$('img[loading="lazy"]');
-
-      if ('loading' in HTMLImageElement.prototype) {
-        // Browser supports lazy loading natively
-        return;
-      }
-
-      // Fallback for browsers that don't support lazy loading
-      const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src || img.src;
-            img.classList.add('loaded');
-            imageObserver.unobserve(img);
-          }
-        });
-      });
-
-      images.forEach(img => imageObserver.observe(img));
-    }
-
-    prefetchLinks() {
-      // Prefetch important links on hover
-      const links = $$('a[href^="http"]');
-
-      links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-          const prefetchLink = document.createElement('link');
-          prefetchLink.rel = 'prefetch';
-          prefetchLink.href = link.href;
-          document.head.appendChild(prefetchLink);
-        }, { once: true });
-      });
-    }
+  fallbackAnimations() {
+    // Si no hay JS avanzado, al menos mostramos los elementos con data-aos
+    const aosElements = document.querySelectorAll('[data-aos]');
+    aosElements.forEach(el => {
+      el.classList.add('aos-animate');
+    });
   }
-
-  // ===========================================
-  // UTILITY FEATURES
-  // ===========================================
-
-  class UtilityFeatures {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      this.setupYearUpdate();
-      this.setupPhoneLinks();
-      this.setupExternalLinks();
-    }
-
-    setupYearUpdate() {
-      const yearEl = $('#year');
-      if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-      }
-    }
-
-    setupPhoneLinks() {
-      // Ensure phone links work properly
-      const phoneLinks = $$('a[href^="tel:"]');
-      phoneLinks.forEach(link => {
-        link.setAttribute('rel', 'nofollow');
-      });
-    }
-
-    setupExternalLinks() {
-      // Add security attributes to external links
-      const externalLinks = $$('a[target="_blank"]');
-      externalLinks.forEach(link => {
-        if (!link.hasAttribute('rel')) {
-          link.setAttribute('rel', 'noopener noreferrer');
-        }
-      });
-    }
-  }
-
-  // ===========================================
-  // ANALYTICS & TRACKING
-  // ===========================================
-
-  class Analytics {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      this.trackCTAClicks();
-      this.trackFormInteractions();
-      this.trackScrollDepth();
-    }
-
-    trackCTAClicks() {
-      const ctaButtons = $$('.btn-primary, .btn-secondary, .nav-cta');
-
-      ctaButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const text = btn.textContent.trim();
-          this.sendEvent('CTA Click', text);
-        });
-      });
-    }
-
-    trackFormInteractions() {
-      const form = $('#contactForm');
-      if (!form) return;
-
-      form.addEventListener('submit', () => {
-        this.sendEvent('Form', 'Submit');
-      });
-    }
-
-    trackScrollDepth() {
-      let maxScroll = 0;
-      const milestones = [25, 50, 75, 100];
-
-      window.addEventListener('scroll', debounce(() => {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset;
-        const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
-
-        milestones.forEach(milestone => {
-          if (scrollPercentage >= milestone && maxScroll < milestone) {
-            maxScroll = milestone;
-            this.sendEvent('Scroll Depth', `${milestone}%`);
-          }
-        });
-      }, 500));
-    }
-
-    sendEvent(category, action) {
-      // Google Analytics 4
-      if (typeof gtag !== 'undefined') {
-        gtag('event', action, {
-          'event_category': category
-        });
-      }
-
-      // Console log for debugging
-      console.log('Event:', category, action);
-    }
-  }
-
-  // ===========================================
-  // ACCESSIBILITY ENHANCEMENTS
-  // ===========================================
-
-  class AccessibilityEnhancer {
-    constructor() {
-      this.init();
-    }
-
-    init() {
-      this.setupKeyboardNavigation();
-      this.setupFocusManagement();
-      this.setupARIALabels();
-    }
-
-    setupKeyboardNavigation() {
-      // Escape key closes mobile menu
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          const navToggle = $('#navToggle');
-          const navMenu = $('#navMenu');
-
-          if (navToggle && navToggle.classList.contains('active')) {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-            navToggle.focus();
-          }
-        }
-      });
-    }
-
-    setupFocusManagement() {
-      // Skip to main content functionality
-      const skipLink = $('.skip-link');
-      if (skipLink) {
-        skipLink.addEventListener('click', (e) => {
-          e.preventDefault();
-          const mainContent = $('#main-content');
-          if (mainContent) {
-            mainContent.setAttribute('tabindex', '-1');
-            mainContent.focus();
-          }
-        });
-      }
-    }
-
-    setupARIALabels() {
-      // Ensure all interactive elements have proper labels
-      const buttons = $$('button:not([aria-label])');
-      buttons.forEach(btn => {
-        if (!btn.textContent.trim() && !btn.getAttribute('aria-label')) {
-          console.warn('Button without accessible label:', btn);
-        }
-      });
-    }
-  }
-
-  // ===========================================
-  // INITIALIZATION
-  // ===========================================
-
-  function init() {
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initApp);
-    } else {
-      initApp();
-    }
-  }
-
-  function initApp() {
-    // Initialize all modules
-    new Navigation();
-    new Animations();
-    new FormHandler();
-    new PerformanceOptimizer();
-    new UtilityFeatures();
-    new Analytics();
-    new AccessibilityEnhancer();
-
-    // Remove loading class if exists
-    document.body.classList.remove('loading');
-
-    console.log('13Bodas initialized successfully ✨');
-  }
-
-  // Start the app
-  init();
-
-})();
+}
