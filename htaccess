@@ -1,0 +1,146 @@
+# .htaccess para 13Bodas.com
+# Optimización de Performance, SEO y Seguridad
+
+# ===========================================
+# COMPRESIÓN GZIP
+# ===========================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml application/rss+xml application/xhtml+xml image/svg+xml
+</IfModule>
+
+# ===========================================
+# CACHE CONTROL
+# ===========================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Imágenes - 1 año
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # CSS y JavaScript - 1 mes
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  
+  # Fonts - 1 año
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  
+  # HTML - 1 hora
+  ExpiresByType text/html "access plus 1 hour"
+  
+  # Otros
+  ExpiresDefault "access plus 1 month"
+</IfModule>
+
+# ===========================================
+# HTTPS REDIRECT
+# ===========================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ===========================================
+# WWW REDIRECT (opcional - sin www)
+# ===========================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.13bodas\.com [NC]
+  RewriteRule ^(.*)$ https://13bodas.com/$1 [L,R=301]
+</IfModule>
+
+# ===========================================
+# SEGURIDAD
+# ===========================================
+
+# Prevenir listado de directorios
+Options -Indexes
+
+# Proteger archivos sensibles
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Proteger archivos de configuración
+<FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op])|~)$">
+  Require all denied
+</FilesMatch>
+
+# Headers de seguridad
+<IfModule mod_headers.c>
+  # XSS Protection
+  Header set X-XSS-Protection "1; mode=block"
+  
+  # Prevenir clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  
+  # Prevenir MIME type sniffing
+  Header set X-Content-Type-Options "nosniff"
+  
+  # Referrer Policy
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Content Security Policy (ajustar según necesidades)
+  Header set Content-Security-Policy "default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com https://formspree.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://www.google-analytics.com;"
+  
+  # Permissions Policy
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ===========================================
+# ERRORES PERSONALIZADOS
+# ===========================================
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# ===========================================
+# OPTIMIZACIÓN DE PERFORMANCE
+# ===========================================
+
+# Eliminar ETags
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
+FileETag None
+
+# Habilitar Keep-Alive
+<IfModule mod_headers.c>
+  Header set Connection keep-alive
+</IfModule>
+
+# ===========================================
+# MIME TYPES
+# ===========================================
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg .svgz
+  AddType application/javascript .js
+  AddType application/json .json
+  AddType font/woff .woff
+  AddType font/woff2 .woff2
+  AddType image/webp .webp
+</IfModule>
+
+# ===========================================
+# URL REWRITING
+# ===========================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  
+  # Remover trailing slash (opcional)
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteCond %{REQUEST_URI} (.+)/$
+  # RewriteRule ^ %1 [R=301,L]
+  
+  # Redirigir index.html a raíz
+  RewriteCond %{THE_REQUEST} ^.*/index\.html
+  RewriteRule ^(.*)index.html$ https://13bodas.com/$1 [R=301,L]
+</IfModule>
